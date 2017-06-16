@@ -1,5 +1,7 @@
 package pagedconsole.pagedconsole;
 
+import java.util.Scanner;
+
 public class BrowserImpl implements Browser {
 
 	Server server;
@@ -23,7 +25,13 @@ public class BrowserImpl implements Browser {
 		}
 		
 		System.out.println(pageContent);
+		getInput();
 		return pageContent;
+	}
+
+	private void getInput() {
+		Scanner scanner = new Scanner(System.in);
+		
 	}
 
 	public void setServer(ServerImpl server) {

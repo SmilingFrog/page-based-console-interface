@@ -51,5 +51,41 @@ public class BrowserTest {
 		String pageContent = browser.browse(pageName);
 		assertEquals(expectedPageContent, pageContent);
 	}
+	
+	@Test
+	public void createListOfCommandsBasedOnPageElementsListInThePage() throws InvalidNameException{
+		prepareData();
+		String pageName = "first_page";
+		browser.browse(pageName);
+	}
+
+	private void prepareData() throws InvalidNameException {
+		pageBuilder = Page.getPageBuilder();
+		PageElement element = Page.createPageElement("HEADER", "HEADER\n");
+		CompositePageElement composite = (CompositePageElement) element;
+		element = Page.createPageElement("TITLE", "THIS IS THE TITLE");
+		composite.add(element);
+		pageBuilder.append(composite);
+		element = Page.createPageElement("BODY", "BODY\n");
+		composite = (CompositePageElement) element;
+		element = Page.createPageElement("TEXT", "And this is just some text in the BODY element");
+		composite.add(element);
+		element = Page.createPageElement("LINK", "Next Page");
+		LeafPageElement leaf = (LeafPageElement) element;
+		leaf.addAttribute("ref", "next_page");
+		leaf.addAttribute("trigger", "1");
+		composite.add(leaf);
+		pageBuilder.append(composite);
+		element = Page.createPageElement("FOOTER", "FOOTER\n");
+		pageBuilder.append(element);
+		pageBuilder.setPageName("first_page");
+		page = pageBuilder.build();
+		PageRepository pageRepository = new PageRepositoryImpl();
+		pageRepository.add(page);
+		browser = new BrowserImpl();
+		server = new ServerImpl();
+		server.setPageRepository(pageRepository);
+		browser.setServer(server);	
+	}
 
 }
