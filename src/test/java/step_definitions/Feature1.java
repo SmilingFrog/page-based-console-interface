@@ -54,10 +54,8 @@ public class Feature1 {
 	public void the_page_is_displayed() throws Throwable {
 		clean();
 		setup();
-		Browser browser = new BrowserImpl();
 		String pageName = "page_name";
 		String expectedPageContent = "HEADER\nBODY\nFOOTER";
 		String pageContent = browser.browse(pageName);
-		throw new PendingException();
 	}
 }
