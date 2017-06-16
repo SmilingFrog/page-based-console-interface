@@ -2,19 +2,19 @@ package pagedconsole.pagedconsole;
 
 public class BrowserImpl implements Browser {
 
-	PageRepository pageRepository;
+	Server server;
 	
-	public PageRepository getPageRepository() {
-		return pageRepository;
+	public Server getServer() {
+		return server;
 	}
 
-	public void setPageRepository(PageRepository pageRepository) {
-		this.pageRepository = pageRepository;
+	public void setServer(Server server) {
+		this.server = server;
 	}
 
 	@Override
 	public String browse(String pageName) {
-		Page page = pageRepository.find(pageName);
+		Page page = server.request(pageName);
 		String pageContent = null;
 		if(page == null){
 			pageContent = "ERROR\nPAGE \"" + pageName + "\" NOT FOUND\nFOOTER\n";
@@ -23,6 +23,10 @@ public class BrowserImpl implements Browser {
 		}
 		System.out.println(pageContent);
 		return pageContent;
+	}
+
+	public void setServer(ServerImpl server) {
+		this.server = server;
 	}
 
 }

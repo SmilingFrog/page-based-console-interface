@@ -14,12 +14,15 @@ import pagedconsole.pagedconsole.PageBuilder;
 import pagedconsole.pagedconsole.PageElement;
 import pagedconsole.pagedconsole.PageRepository;
 import pagedconsole.pagedconsole.PageRepositoryImpl;
+import pagedconsole.pagedconsole.Server;
+import pagedconsole.pagedconsole.ServerImpl;
 
 public class Feature1 {
 	
 	PageBuilder pageBuilder;
 	Page page;
-	Browser browser;
+	BrowserImpl browser;
+	ServerImpl server;
 
 	@Given("^I have a page created$")
 	public void i_have_a_page_created() throws Throwable {
@@ -44,13 +47,16 @@ public class Feature1 {
 		page = pageBuilder.build();
 		pageRepository.add(page);
 		browser = new BrowserImpl();
-		browser.setPageRepository(pageRepository);
+		server = new ServerImpl();
+		server.setPageRepository(pageRepository);
+		browser.setServer(server);
 	}
 
 	private void clean() {
 		pageBuilder = null;
 		page = null;
 		browser = null;
+		server = null;
 	}
 
 	@When("^I give the browser the page address and such page does exist$")
