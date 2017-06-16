@@ -2,6 +2,6 @@ package pagedconsole.pagedconsole;
 
 public interface Browser {
 
-	void browse(String pageName);
+	String browse(String pageName);
 
 }

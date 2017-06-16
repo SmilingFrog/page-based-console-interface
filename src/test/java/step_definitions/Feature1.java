@@ -1,5 +1,6 @@
 package step_definitions;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import cucumber.api.PendingException;
@@ -41,7 +42,9 @@ public class Feature1 {
 		setup();
 		Browser browser = new BrowserImpl();
 		String pageName = "page_name";
-		browser.browse(pageName);
+		String expectedPageContent = "HEADER\nBODY\nFOOTER";
+		String pageContent = browser.browse(pageName);
+		assertEquals(expectedPageContent, pageContent);
 		clean();
 	}
 
