@@ -12,21 +12,37 @@ import pagedconsole.pagedconsole.Page;
 import pagedconsole.pagedconsole.PageBuilder;
 
 public class Feature1 {
+	
+	PageBuilder pageBuilder;
+	Page page;
+
 	@Given("^I have a page created$")
 	public void i_have_a_page_created() throws Throwable {
-		PageBuilder pageBuilder = Page.getPageBuilder();
-		Page page = pageBuilder.build();
+		clean();
+		setup();
 		assertNotNull(pageBuilder);
 		assertNotNull(page);
+		clean();
+	}
+
+	private void setup() {
+		pageBuilder = Page.getPageBuilder();
+		page = pageBuilder.build();
+	}
+
+	private void clean() {
+		pageBuilder = null;
+		page = null;
 	}
 
 	@When("^I give the browser the page name$")
 	public void i_give_the_browser_the_page_name() throws Throwable {
-		PageBuilder pageBuilder = Page.getPageBuilder();
-		Page page = pageBuilder.build();
+		clean();
+		setup();
 		Browser browser = new BrowserImpl();
 		String pageName = "page_name";
 		browser.browse(pageName);
+		clean();
 	}
 
 	@Then("^The page is displayed$")
