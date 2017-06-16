@@ -27,5 +27,28 @@ public class PageElementTest {
 		System.out.println(page.getContent());
 	}
 	
+	@Test
+	public void whenAddingLeafPageElementsProvideTheirAttributes() throws InvalidNameException{
+		PageBuilder pb = Page.getPageBuilder();
+		PageElement element = Page.createPageElement("HEADER", "HEADER\n");
+		CompositePageElement composite = (CompositePageElement) element;
+		element = Page.createPageElement("TITLE", "THIS IS THE TITLE");
+		composite.add(element);
+		pb.append(composite);
+		element = Page.createPageElement("BODY", "BODY\n");
+		composite = (CompositePageElement) element;
+		element = Page.createPageElement("TEXT", "And this is just some text in the BODY element");
+		composite.add(element);
+		element = Page.createPageElement("LINK", "Next Page");
+		LeafPageElement leaf = (LeafPageElement) element;
+		leaf.addAttribute("ref", "next_page");
+		leaf.addAttribute("trigger", "1");
+		composite.add(leaf);
+		pb.append(composite);
+		element = Page.createPageElement("FOOTER", "FOOTER\n");
+		pb.append(element);
+		Page page = pb.build();
+		System.out.println(page.getContent());
+	}
 
 }
