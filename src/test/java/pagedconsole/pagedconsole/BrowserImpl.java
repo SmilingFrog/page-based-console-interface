@@ -21,6 +21,7 @@ public class BrowserImpl implements Browser {
 		}else{
 			pageContent = page.getContent();
 		}
+		
 		System.out.println(pageContent);
 		return pageContent;
 	}

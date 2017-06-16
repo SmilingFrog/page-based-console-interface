@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import java.rmi.server.ServerCloneException;
 
+import javax.naming.InvalidNameException;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,7 +17,7 @@ public class BrowserTest {
 	ServerImpl server; 
 	
 	@Before
-	public void setup(){
+	public void setup() throws InvalidNameException{
 		String pageName = "page_name";
 		PageRepository pageRepository = new PageRepositoryImpl();
 		pageBuilder = Page.getPageBuilder();
@@ -35,9 +37,17 @@ public class BrowserTest {
 	}
 	
 	@Test
-	public void test() {
+	public void whenBrowsePageThatExistShowThePage() {
 		String pageName = "page_name";
 		String expectedPageContent = "HEADER\nBODY\nFOOTER\n";
+		String pageContent = browser.browse(pageName);
+		assertEquals(expectedPageContent, pageContent);
+	}
+	
+	@Test
+	public void whenBrowsePageThatDoesNotExistShowTheErrorPage() {
+		String pageName = "wrong_page_name";
+		String expectedPageContent = "ERROR\nPAGE \"wrong_page_name\" NOT FOUND\nFOOTER\n";
 		String pageContent = browser.browse(pageName);
 		assertEquals(expectedPageContent, pageContent);
 	}

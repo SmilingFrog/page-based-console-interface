@@ -3,6 +3,8 @@ package step_definitions;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import javax.naming.InvalidNameException;
+
 import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -33,7 +35,7 @@ public class Feature1 {
 		clean();
 	}
 
-	private void setup() {
+	private void setup() throws InvalidNameException {
 		String pageName = "page_name";
 		PageRepository pageRepository = new PageRepositoryImpl();
 		pageBuilder = Page.getPageBuilder();

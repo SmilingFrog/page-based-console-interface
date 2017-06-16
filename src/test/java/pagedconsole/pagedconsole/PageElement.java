@@ -1,7 +1,5 @@
 package pagedconsole.pagedconsole;
 
-public interface PageElement {
-
-	String getText();
-
+public interface PageElement{
+	public String getText();
 }

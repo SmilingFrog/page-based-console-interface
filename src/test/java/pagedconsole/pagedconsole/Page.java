@@ -1,7 +1,10 @@
 package pagedconsole.pagedconsole;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.naming.InvalidNameException;
 
 public class Page {
 
@@ -38,16 +41,63 @@ public class Page {
 		};
 	}
 
-	public static PageElement createPageElement(String elementName, String elementText) {
-		return new PageElement() {
-			private String pageElementName = elementName;
-			private String pageElementText = elementText; 
-			@Override
-			public String getText() {
-				return pageElementText;
+	public static PageElement createPageElement(String elementName, String elementText) throws InvalidNameException {
+		PageElement result = null;
+		if(isValid(elementName)){
+			if(isComposite(elementName)){
+				CompositePageElement compositeElement = new CompositePageElement();
+				compositeElement.setElementName(elementName);
+				compositeElement.setElementText(elementText);
+				result = compositeElement;
+			}else{
+				LeafPageElement leafElement = new LeafPageElement();
+				leafElement.setElementName(elementName);
+				leafElement.setElementText(elementText);
+				result = leafElement;
 			}
-			
-		};
+		}else{
+			throw new InvalidNameException("WRONG ELEMENT NAME");
+		}
+		
+		return result;
+	}
+
+	private static boolean isComposite(String elementName) {
+		boolean result = false;
+		switch(elementName){
+		case "HEADER":
+		case "BREADCRUMBS":
+		case "BODY":
+		case "FORM":
+		case "FOOTER":
+			result = true;
+			break;
+		default:
+		}
+		return result;
+	}
+
+	private static boolean isValid(String elementName) {
+		
+		boolean result = false;
+		
+		switch(elementName){
+		case "HEADER":
+		case "TITLE":
+		case "TEXT":
+		case "BREADCRUMBS":
+		case "CRUMB":
+		case "BODY":
+		case "LINK":
+		case "FORM":
+		case "INPUT":
+		case "BUTTON":
+		case "FOOTER":
+			result = true;
+			break;
+		default:
+		}
+		return result;
 	}
 
 	public String getContent() {
