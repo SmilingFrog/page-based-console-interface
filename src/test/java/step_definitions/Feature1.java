@@ -16,6 +16,7 @@ public class Feature1 {
 	
 	PageBuilder pageBuilder;
 	Page page;
+	Browser browser;
 
 	@Given("^I have a page created$")
 	public void i_have_a_page_created() throws Throwable {
@@ -29,18 +30,19 @@ public class Feature1 {
 	private void setup() {
 		pageBuilder = Page.getPageBuilder();
 		page = pageBuilder.build();
+		browser = new BrowserImpl();
 	}
 
 	private void clean() {
 		pageBuilder = null;
 		page = null;
+		browser = null;
 	}
 
 	@When("^I give the browser the page name$")
 	public void i_give_the_browser_the_page_name() throws Throwable {
 		clean();
 		setup();
-		Browser browser = new BrowserImpl();
 		String pageName = "page_name";
 		String expectedPageContent = "HEADER\nBODY\nFOOTER";
 		String pageContent = browser.browse(pageName);
@@ -50,7 +52,12 @@ public class Feature1 {
 
 	@Then("^The page is displayed$")
 	public void the_page_is_displayed() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+		clean();
+		setup();
+		Browser browser = new BrowserImpl();
+		String pageName = "page_name";
+		String expectedPageContent = "HEADER\nBODY\nFOOTER";
+		String pageContent = browser.browse(pageName);
+		throw new PendingException();
 	}
 }
