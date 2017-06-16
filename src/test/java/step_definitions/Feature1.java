@@ -39,8 +39,8 @@ public class Feature1 {
 		browser = null;
 	}
 
-	@When("^I give the browser the page name$")
-	public void i_give_the_browser_the_page_name() throws Throwable {
+	@When("^I give the browser the page address and such page does exist$")
+	public void i_give_the_browser_the_page_address_and_such_page_does_exist() throws Throwable {
 		clean();
 		setup();
 		String pageName = "page_name";
