@@ -6,6 +6,8 @@ import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import pagedconsole.pagedconsole.Browser;
+import pagedconsole.pagedconsole.BrowserImpl;
 import pagedconsole.pagedconsole.Page;
 import pagedconsole.pagedconsole.PageBuilder;
 
@@ -20,8 +22,11 @@ public class Feature1 {
 
 	@When("^I give the browser the page name$")
 	public void i_give_the_browser_the_page_name() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+		PageBuilder pageBuilder = Page.getPageBuilder();
+		Page page = pageBuilder.build();
+		Browser browser = new BrowserImpl();
+		String pageName = "page_name";
+		browser.browse(pageName);
 	}
 
 	@Then("^The page is displayed$")
